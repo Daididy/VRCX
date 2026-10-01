@@ -10,6 +10,7 @@ import FriendList from './../views/FriendList/FriendList.vue';
 import FriendLog from './../views/FriendLog/FriendLog.vue';
 import FriendsLocations from './../views/FriendsLocations/FriendsLocations.vue';
 import Dashboard from './../views/Dashboard/Dashboard.vue';
+import Profile from './../views/Profile/Profile.vue';
 import Gallery from './../views/Tools/Gallery.vue';
 import GameLog from './../views/GameLog/GameLog.vue';
 import Login from './../views/Login/Login.vue';
@@ -35,8 +36,13 @@ const routes = [
         component: MainLayout,
         meta: { requiresAuth: true },
         children: [
-            { path: '', redirect: { name: 'feed' } },
-            { path: 'feed', name: 'feed', component: Feed },
+            { path: '', redirect: { name: 'profile' } },
+            { path: 'profile', name: 'profile', component: Profile },
+            {
+                path: 'feed',
+                name: 'feed',
+                component: Feed
+            },
             {
                 path: 'friends-locations',
                 name: 'friends-locations',
@@ -151,7 +157,7 @@ router.beforeEach((to) => {
     }
 
     if (to.name === 'login' && watchState.isLoggedIn) {
-        return { name: 'feed' };
+        return { name: 'Profile' };
     }
 
     const requiresAuth = to.matched.some((record) => record.meta?.requiresAuth);
